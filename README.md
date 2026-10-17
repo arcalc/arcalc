@@ -11,9 +11,9 @@ I am a developer with a deep passion for low-level programming, system hardening
 - **Tools:** CMake, Qt6, Neovim, GCC, GDB
 
 ###  Featured Open Source Work
-- **[m4s-security-os](https://github.com/arcalc/m4s-security-os):** Linux security suite & system hardening scripts.
-- **[security_toolkit](https://github.com/arcalc/security_toolkit):** Cross-distribution C++ command-line security auditing utility.
-- **[M4S_D](https://github.com/arcalc/M4S_D):** Desktop application written in C++ and Qt6 for media management.
+- **[security_toolkit](https://mahmoudelsheikh7.github.io/security_toolkit/):** Linux security suite & system hardening scripts.
+- **[Learncpp](https://mahmoudelsheikh7.github.io/Learncpp/):** Cross-distribution C++ command-line security auditing utility.
+- **[Setup-Server](https://mahmoudelsheikh7.github.io/Setup-Server/):** Desktop application written in C++ and Qt6 for media management.
 
 ###  Let's Connect
 - **Portfolio:** [arcalc.github.io/arcalc](https://arcalc.github.io/arcalc/)
