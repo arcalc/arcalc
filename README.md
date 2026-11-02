@@ -17,4 +17,4 @@ I am a developer with a deep passion for low-level programming, system hardening
 
 ###  Let's Connect
 - **Portfolio:** [arcalc.github.io/arcalc](https://arcalc.github.io/arcalc/)
-- **Email:** [thearcalc@protonmail.com](mailto:thearcalc@protonmail.com)
+- **Email:** [arcalc@proton.me](mailto:arcalc@proton.me)
