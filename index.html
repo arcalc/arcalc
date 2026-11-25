@@ -1,218 +1,172 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>arcalc | Systems Developer</title>
+<script>
+  (function () {
+    var theme = 'light';
+    try {
+      var saved = localStorage.getItem('site-theme');
+      if (saved === 'dark' || saved === 'light') theme = saved;
+    } catch (e) {}
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* 10 Base Palette Tokens */
-  --navy: #243C4C;
-  --cerulean: #5289AD;
-  --teal: #698696;
-  --silver: #ACBCBF;
-  --ice: #F4FCFB;
-  --offwhite: #E9E6E7;
-  --charcoal: #5E5653;
-  --slate: #7B7F8A;
-  --taupe: #AB978C;
-  --steel: #6B7C98;
-
-  /* Light Mode Semantic Tokens */
-  --bg: var(--offwhite);
-  --surface: var(--ice);
-  --surface-2: color-mix(in srgb, var(--ice) 55%, var(--offwhite));
-  --text: var(--charcoal);
-  --text-2: color-mix(in srgb, var(--slate) 45%, var(--charcoal));
-  --border: color-mix(in srgb, var(--silver) 80%, var(--offwhite));
-  --link: color-mix(in srgb, var(--cerulean) 72%, var(--navy));
-  --btn: color-mix(in srgb, var(--cerulean) 76%, var(--navy));
-  --btn-hover: color-mix(in srgb, var(--teal) 70%, var(--navy));
-  --badge-bg: color-mix(in srgb, var(--taupe) 35%, var(--ice));
-  --term: color-mix(in srgb, var(--navy) 58%, #000);
-  --term-bar: color-mix(in srgb, var(--navy) 80%, #000);
-  --term-text: var(--ice);
-  --term-dim: var(--silver);
-  --nav-bg: color-mix(in srgb, var(--offwhite) 88%, transparent);
+  --navy: #243C4C; --cerulean: #5289AD; --teal: #698696; --silver: #ACBCBF;
+  --ice: #F4FCFB; --taupe: #AB978C; --steel: #6B7C98;
   --radius: 10px;
+}
+:root, :root[data-theme="light"] {
+  --bg: #FBF6DC; --surface: #F3EBC8; --surface-2: #F5EED0;
+  --text: #7A5C14; --text-2: #86590E; --accent: #7A5C14; --accent-hover: #86590E;
+  --border: rgba(122, 92, 20, 0.28); --border-strong: rgba(122, 92, 20, 0.62);
+  --nav-bg: rgba(251, 246, 220, 0.88); --badge-bg: rgba(122, 92, 20, 0.10);
+  --term: #F3EBC8; --term-bar: rgba(122, 92, 20, 0.12);
+  --link: #7A5C14;
   color-scheme: light;
 }
-
 :root[data-theme="dark"] {
-  --bg: var(--navy);
-  --surface: color-mix(in srgb, var(--navy) 90%, var(--ice));
-  --surface-2: color-mix(in srgb, var(--navy) 80%, #000);
-  --text: var(--ice);
-  --text-2: var(--silver);
-  --border: color-mix(in srgb, var(--navy) 72%, var(--silver));
-  --link: color-mix(in srgb, var(--cerulean) 55%, var(--ice));
-  --btn: color-mix(in srgb, var(--cerulean) 82%, var(--navy));
-  --btn-hover: var(--cerulean);
-  --badge-bg: color-mix(in srgb, var(--taupe) 22%, var(--navy));
-  --term: color-mix(in srgb, var(--navy) 50%, #000);
-  --nav-bg: color-mix(in srgb, var(--navy) 88%, transparent);
+  --bg: #243C4C;
+  --surface: color-mix(in srgb, #243C4C 88%, #F4FCFB);
+  --surface-2: color-mix(in srgb, #243C4C 80%, #000);
+  --text: #F4FCFB; --text-2: #ACBCBF; --accent: #5289AD; --accent-hover: #698696;
+  --border: color-mix(in srgb, #243C4C 68%, #ACBCBF); --border-strong: #6B7C98;
+  --nav-bg: rgba(36, 60, 76, 0.88);
+  --badge-bg: color-mix(in srgb, #AB978C 22%, #243C4C);
+  --term: color-mix(in srgb, #243C4C 55%, #000);
+  --term-bar: color-mix(in srgb, #243C4C 78%, #000);
+  --link: color-mix(in srgb, #5289AD 55%, #F4FCFB);
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --bg: var(--navy);
-    --surface: color-mix(in srgb, var(--navy) 90%, var(--ice));
-    --surface-2: color-mix(in srgb, var(--navy) 80%, #000);
-    --text: var(--ice);
-    --text-2: var(--silver);
-    --border: color-mix(in srgb, var(--navy) 72%, var(--silver));
-    --link: color-mix(in srgb, var(--cerulean) 55%, var(--ice));
-    --btn: color-mix(in srgb, var(--cerulean) 82%, var(--navy));
-    --btn-hover: var(--cerulean);
-    --badge-bg: color-mix(in srgb, var(--taupe) 22%, var(--navy));
-    --term: color-mix(in srgb, var(--navy) 50%, #000);
-    --nav-bg: color-mix(in srgb, var(--navy) 88%, transparent);
-    color-scheme: dark;
-  }
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   background: var(--bg); color: var(--text);
-  font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif; line-height: 1.7;
+  font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif; line-height: 1.7;
   transition: background-color .3s ease, color .3s ease;
 }
-h1, h2, .brand { font-family: 'Amiri', serif; line-height: 1.25; }
-a { color: var(--link); }
-:focus-visible { outline: 2px solid var(--cerulean); outline-offset: 3px; }
-.wrap { width: min(94%, 1520px); margin-inline: auto; }
-.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+h1, h2, .brand { font-family: 'Amiri', Georgia, serif; line-height: 1.25; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { position: relative; z-index: 1; width: min(94%, 1480px); margin-inline: auto; }
 
 /* Navigation */
 nav {
   position: sticky; top: 0; z-index: 10; height: 68px;
-  background: var(--nav-bg);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  background: var(--nav-bg); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
 .nav-in { height: 100%; display: flex; align-items: center; gap: 16px; }
 .brand { font-size: 1.8rem; font-weight: 700; color: var(--text); text-decoration: none; }
 .nav-links { display: flex; gap: 28px; margin-inline: auto 12px; }
-.nav-links a { color: var(--text-2); text-decoration: none; font-weight: 500; font-size: .95rem; transition: color .2s ease; }
-.nav-links a:hover { color: var(--link); }
+.nav-links a { color: var(--text-2); text-decoration: none; font-weight: 500; font-size: .95rem; }
+.nav-links a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 5px; }
 .tools { display: flex; gap: 8px; }
 .tool {
-  min-width: 40px; height: 36px; padding-inline: 12px;
-  background: transparent; color: var(--text);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  font: 500 .9rem 'IBM Plex Sans Arabic', system-ui, sans-serif;
-  cursor: pointer; transition: border-color .2s ease, color .2s ease;
+  min-width: 40px; height: 36px; padding-inline: 14px; background: transparent; color: var(--text);
+  border: 1px solid var(--border-strong); border-radius: var(--radius);
+  font: 500 .9rem 'IBM Plex Sans Arabic', system-ui, sans-serif; cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease;
 }
-.tool:hover { border-color: var(--cerulean); color: var(--link); }
+.tool:hover { background: var(--badge-bg); border-color: var(--accent); }
 
-/* Hero & footer: always navy */
-.on-navy { position: relative; overflow: hidden; background: var(--navy); color: var(--ice); }
-.on-navy::before {
+/* Grid + glyph backgrounds */
+.gridbg { position: relative; overflow: hidden; }
+.gridbg::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background-image:
-    linear-gradient(color-mix(in srgb, var(--cerulean) 9%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--cerulean) 9%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px);
   background-size: 36px 36px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 15%, transparent 75%);
-  mask-image: radial-gradient(ellipse at 50% 40%, #000 15%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 78%);
 }
-.on-navy > * { position: relative; }
+.glyphs {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; opacity: 0.055; color: var(--accent);
+  pointer-events: none; user-select: none; -webkit-user-select: none;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 500;
+}
+.glyphs span, .glyphs svg { position: absolute; white-space: nowrap; line-height: 1; }
+
+/* Hero */
 .hero { min-height: calc(100vh - 68px); display: flex; align-items: center; padding-block: 72px; scroll-margin-top: 68px; }
-.hero-grid { display: grid; grid-template-columns: 1.25fr .85fr; align-items: center; gap: 56px; }
-.hero h1 { font-size: clamp(2.8rem, 4.8vw, 4.4rem); font-weight: 700; margin-bottom: 14px; }
-.role { color: var(--silver); font-size: 1.2rem; margin-bottom: 20px; }
-.bio { color: var(--silver); max-width: 60ch; margin-bottom: 28px; font-size: 1.05rem; }
-.badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
-.badge {
-  font: 400 .85rem 'IBM Plex Mono', ui-monospace, monospace; padding: 5px 12px; border-radius: 999px;
-  background: color-mix(in srgb, var(--taupe) 22%, var(--navy));
-  border: 1px solid color-mix(in srgb, var(--navy) 72%, var(--silver)); color: var(--ice);
+.hero-grid { display: grid; grid-template-columns: 1.2fr .85fr; align-items: center; gap: 56px; }
+.eyebrow, .pill, .chip, .tech {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  background: var(--badge-bg); border: 1px solid var(--border); color: var(--text);
 }
+.eyebrow { display: inline-block; font-size: .8rem; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; color: var(--text-2); }
+.hero h1 { font-size: clamp(2.6rem, 4.8vw, 4.2rem); font-weight: 700; margin-bottom: 12px; }
+.role { color: var(--text-2); font-size: 1.2rem; font-weight: 500; margin-bottom: 18px; }
+.bio { color: var(--text-2); max-width: 60ch; margin-bottom: 28px; font-size: 1.05rem; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+.pill { font-size: .85rem; padding: 5px 14px; border-radius: 999px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .btn {
-  display: inline-block; padding: 12px 28px; border-radius: var(--radius);
-  background: var(--btn); color: var(--ice); text-decoration: none; font-weight: 600;
-  border: 1px solid transparent; transition: background-color .2s ease, border-color .2s ease;
+  display: inline-block; padding: 12px 28px; border-radius: var(--radius); text-decoration: none; font-weight: 600;
+  background: var(--accent); color: var(--bg); border: 1px solid var(--accent);
+  transition: background-color .2s ease, border-color .2s ease;
 }
-.btn:hover { background: var(--btn-hover); }
-.btn.ghost { background: transparent; border-color: var(--silver); }
-.btn.ghost:hover { border-color: var(--ice); background: color-mix(in srgb, var(--ice) 8%, transparent); }
+.btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn.ghost { background: transparent; color: var(--text); border-color: var(--border-strong); }
+.btn.ghost:hover { background: var(--badge-bg); border-color: var(--accent); }
 
-/* Profile card */
-.profile {
-  position: relative; overflow: hidden; scroll-margin-top: 92px;
-  border-radius: var(--radius);
-  border: 1px solid color-mix(in srgb, var(--cerulean) 38%, transparent);
-  background: color-mix(in srgb, var(--navy) 88%, var(--ice));
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  box-shadow: 0 24px 60px color-mix(in srgb, #000 28%, transparent);
+/* Focus card */
+.focus {
+  position: relative; scroll-margin-top: 92px; overflow: hidden; padding: 28px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
 }
-.profile::before { content: ""; position: absolute; top: 0; inset-inline-start: 0; width: 72px; height: 2px; background: var(--cerulean); }
-.profile::after {
-  content: ""; position: absolute; top: 0; right: 0; width: 170px; height: 170px; pointer-events: none;
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--cerulean) 22%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--cerulean) 22%, transparent) 1px, transparent 1px);
-  background-size: 17px 17px;
-  -webkit-mask-image: radial-gradient(circle at 100% 0, #000, transparent 70%);
-  mask-image: radial-gradient(circle at 100% 0, #000, transparent 70%);
-}
-.pillar { position: relative; z-index: 1; padding: 26px 30px; }
-.pillar + .pillar { border-top: 1px solid color-mix(in srgb, var(--cerulean) 22%, transparent); }
-.pillar h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 1.1rem; font-weight: 600; color: var(--ice); }
-.pillar h3::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--cerulean); }
+.focus::before { content: ""; position: absolute; top: 0; inset-inline-start: 0; width: 72px; height: 3px; background: var(--accent); }
+.pillar + .pillar { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border); }
+.pillar h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 1.1rem; font-weight: 600; }
+.pillar h3::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
-  font: 400 .8rem 'IBM Plex Mono', ui-monospace, monospace; padding: 4px 10px; border-radius: 6px;
-  color: var(--silver); border: 1px solid color-mix(in srgb, var(--silver) 30%, transparent);
-}
+.chip { font-size: .8rem; padding: 4px 10px; border-radius: 6px; }
 
 /* Sections */
 .section { padding-block: 88px; scroll-margin-top: 68px; }
 .section.alt { background: var(--surface-2); }
 .section h2 { font-size: clamp(2rem, 3vw, 2.6rem); font-weight: 700; margin-bottom: 36px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 24px; }
+.contact-grid { grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); }
 .card {
   display: flex; flex-direction: column; gap: 14px; padding: 28px;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   color: var(--text); text-decoration: none;
   transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
-.card:hover {
-  border-color: var(--cerulean); transform: translateY(-4px);
-  box-shadow: 0 0 0 1px var(--cerulean), 0 12px 30px color-mix(in srgb, var(--cerulean) 22%, transparent);
-}
+.card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); }
 .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .icon {
   width: 40px; height: 40px; display: grid; place-items: center; border-radius: 8px;
   background: var(--badge-bg); border: 1px solid var(--border);
-  font: 500 .95rem 'IBM Plex Mono', ui-monospace, monospace; color: var(--text);
+  font: 500 .95rem 'IBM Plex Mono', ui-monospace, monospace;
 }
-.tech {
-  font: 400 .78rem 'IBM Plex Mono', ui-monospace, monospace; padding: 3px 10px; border-radius: 6px;
-  background: var(--badge-bg); border: 1px solid var(--border); color: var(--text);
-}
+.tech { font-size: .78rem; padding: 3px 10px; border-radius: 6px; }
 .card h3 { font-size: 1.2rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
 .card h3 span { display: inline-block; unicode-bidi: isolate; direction: ltr; }
 .card p { color: var(--text-2); flex: 1; }
-.card .go { font-weight: 600; color: var(--link); margin-top: 4px; }
-.card:hover .go { text-decoration: underline; }
-.contact-grid { grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+.card .go { margin-top: auto; font-weight: 600; color: var(--link); text-decoration: none; width: fit-content; }
+.card .go:hover { text-decoration: underline; text-underline-offset: 4px; }
 .label { display: block; color: var(--text-2); font-size: .88rem; }
 .value { display: block; unicode-bidi: isolate; overflow-wrap: anywhere; font: 500 1.05rem 'IBM Plex Mono', ui-monospace, monospace; color: var(--link); }
 
 /* Footer */
-footer { padding-block: 40px; }
+footer { padding-block: 40px; border-top: 1px solid var(--border); }
 .foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 28px; }
-.foot p { color: var(--silver); font-size: .9rem; }
-.foot .links { display: flex; gap: 24px; }
-.foot .links a { color: var(--ice); text-decoration: none; font: 400 .9rem 'IBM Plex Mono', ui-monospace, monospace; }
-.foot .links a:hover { color: var(--silver); text-decoration: underline; }
+.foot .brand { font-size: 1.4rem; }
+.foot p { color: var(--text-2); font-size: .9rem; }
+.links { display: flex; gap: 24px; }
+.links a { color: var(--text); text-decoration: none; font: 400 .9rem 'IBM Plex Mono', ui-monospace, monospace; }
+.links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 980px) {
   .hero { min-height: 0; padding-block: 64px; }
@@ -238,24 +192,25 @@ footer { padding-block: 40px; }
       <a href="https://github.com/arcalc" target="_blank" rel="noopener">GitHub</a>
     </div>
     <div class="tools">
+      <button class="tool" id="theme-btn" type="button" data-en="Dark" data-ar="داكن">Dark</button>
       <button class="tool" id="lang-btn" type="button" data-en="العربية" data-ar="English">العربية</button>
-      <button class="tool" id="theme-btn" type="button">☾</button>
     </div>
   </div>
 </nav>
 
-<header class="hero on-navy" id="top">
+<header class="hero gridbg" id="top" data-glyphs="20">
   <div class="wrap hero-grid">
     <div>
+      <span class="eyebrow" data-en="Systems · Security · Mathematics" data-ar="أنظمة · أمن · رياضيات">Systems · Security · Mathematics</span>
       <h1 data-en="Hi, I'm arcalc" data-ar="مرحبًا، أنا arcalc">Hi, I'm arcalc</h1>
       <p class="role" data-en="Systems Developer | Cybersecurity | Pure Mathematics" data-ar="مطوّر أنظمة | الأمن السيبراني | الرياضيات البحتة">Systems Developer | Cybersecurity | Pure Mathematics</p>
       <p class="bio" data-en="I am deeply passionate about low-level programming, system hardening, and mathematical analysis. My primary focus revolves around C++, Linux environments, and building robust security utilities." data-ar="أهتم بعمق بالبرمجة منخفضة المستوى وتحصين الأنظمة والتحليل الرياضي. يتركز عملي على C++ وبيئات لينكس وبناء أدوات أمنية متينة.">I am deeply passionate about low-level programming, system hardening, and mathematical analysis. My primary focus revolves around C++, Linux environments, and building robust security utilities.</p>
-      <div class="badges">
-        <span class="badge" data-en="C++" data-ar="C++">C++</span>
-        <span class="badge" data-en="x86_64 Assembly" data-ar="لغة التجميع x86_64">x86_64 Assembly</span>
-        <span class="badge" data-en="Linux" data-ar="لينكس">Linux</span>
-        <span class="badge" data-en="Cybersecurity" data-ar="الأمن السيبراني">Cybersecurity</span>
-        <span class="badge" data-en="Operations Research" data-ar="بحوث العمليات">Operations Research</span>
+      <div class="pills">
+        <span class="pill" data-en="C++" data-ar="C++">C++</span>
+        <span class="pill" data-en="x86_64 Assembly" data-ar="لغة التجميع x86_64">x86_64 Assembly</span>
+        <span class="pill" data-en="Linux" data-ar="لينكس">Linux</span>
+        <span class="pill" data-en="Cybersecurity" data-ar="الأمن السيبراني">Cybersecurity</span>
+        <span class="pill" data-en="Operations Research" data-ar="بحوث العمليات">Operations Research</span>
       </div>
       <div class="actions">
         <a class="btn" href="mailto:arcalc@proton.me" data-en="Contact Me" data-ar="تواصل معي">Contact Me</a>
@@ -263,7 +218,7 @@ footer { padding-block: 40px; }
       </div>
     </div>
 
-    <aside class="profile" id="focus">
+    <aside class="focus" id="focus">
       <div class="pillar">
         <h3 data-en="Low-Level &amp; Systems" data-ar="البرمجة منخفضة المستوى والأنظمة">Low-Level &amp; Systems</h3>
         <div class="chips">
@@ -290,10 +245,10 @@ footer { padding-block: 40px; }
   </div>
 </header>
 
-<section class="section" id="projects">
+<section class="section alt gridbg" id="projects" data-glyphs="14">
   <div class="wrap">
     <h2 data-en="My Projects" data-ar="مشاريعي">My Projects</h2>
-    <div class="grid">
+    <div class="grid" id="projects-grid">
 
       <article class="card">
         <div class="card-top"><span class="icon" aria-hidden="true" dir="ltr">&gt;_</span><span class="tech" dir="ltr">C++</span></div>
@@ -320,7 +275,7 @@ footer { padding-block: 40px; }
   </div>
 </section>
 
-<section class="section alt" id="contact">
+<section class="section gridbg" id="contact" data-glyphs="8">
   <div class="wrap">
     <h2 data-en="Get in Touch" data-ar="تواصل معي">Get in Touch</h2>
     <div class="grid contact-grid">
@@ -332,17 +287,16 @@ footer { padding-block: 40px; }
         <span class="label" data-en="GitHub" data-ar="GitHub">GitHub</span>
         <span class="value">github.com/arcalc</span>
       </a>
-      <a class="card" href="https://arcalc.github.io/arcalc/" target="_blank" rel="noopener">
-        <span class="label" data-en="Portfolio" data-ar="الموقع الشخصي">Portfolio</span>
-        <span class="value">arcalc.github.io/arcalc</span>
-      </a>
     </div>
   </div>
 </section>
 
-<footer class="on-navy">
+<footer>
   <div class="wrap foot">
-    <p data-en="© 2026 arcalc. All rights reserved." data-ar="© 2026 arcalc. جميع الحقوق محفوظة.">© 2026 arcalc. All rights reserved.</p>
+    <div>
+      <span class="brand">arcalc</span>
+      <p data-en="© 2026 arcalc. All rights reserved." data-ar="© 2026 arcalc. جميع الحقوق محفوظة.">© 2026 arcalc. All rights reserved.</p>
+    </div>
     <div class="links">
       <a href="https://github.com/arcalc" target="_blank" rel="noopener">GitHub</a>
       <a href="mailto:arcalc@proton.me">arcalc@proton.me</a>
@@ -355,56 +309,127 @@ footer { padding-block: 40px; }
   var root = document.documentElement;
   var langBtn = document.getElementById('lang-btn');
   var themeBtn = document.getElementById('theme-btn');
-  var ARIA = {
-    en: { lang: 'Switch to Arabic', theme: 'Toggle light and dark mode', title: 'arcalc | Systems Developer' },
-    ar: { lang: 'التبديل إلى الإنجليزية', theme: 'التبديل بين الوضع الفاتح والداكن', title: 'arcalc | مطوّر أنظمة' }
+  var META = {
+    en: { lang: 'Switch to Arabic', theme: 'Toggle light and dark theme', title: 'arcalc | Systems Developer' },
+    ar: { lang: 'التبديل إلى الإنجليزية', theme: 'التبديل بين السمة الفاتحة والداكنة', title: 'arcalc | مطوّر أنظمة' }
   };
 
   /* Language */
   var lang = 'en';
-  try { lang = localStorage.getItem('lang') || 'en'; } catch (e) {}
+  try { lang = localStorage.getItem('site-lang') || 'en'; } catch (e) {}
   if (lang !== 'ar') lang = 'en';
 
+  function updateThemeLabel() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    themeBtn.setAttribute('data-en', dark ? 'Light' : 'Dark');
+    themeBtn.setAttribute('data-ar', dark ? 'فاتح' : 'داكن');
+  }
   function applyLang() {
     root.lang = lang;
     root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    updateThemeLabel();
     document.querySelectorAll('[data-en]').forEach(function (el) {
       el.textContent = el.getAttribute('data-' + lang);
     });
     langBtn.lang = lang === 'ar' ? 'en' : 'ar';
-    langBtn.setAttribute('aria-label', ARIA[lang].lang);
-    themeBtn.setAttribute('aria-label', ARIA[lang].theme);
-    document.title = ARIA[lang].title;
+    langBtn.setAttribute('aria-label', META[lang].lang);
+    themeBtn.setAttribute('aria-label', META[lang].theme);
+    document.title = META[lang].title;
   }
   langBtn.addEventListener('click', function () {
     lang = lang === 'ar' ? 'en' : 'ar';
-    try { localStorage.setItem('lang', lang); } catch (e) {}
+    try { localStorage.setItem('site-lang', lang); } catch (e) {}
     applyLang();
   });
 
-  /* Theme: a saved choice wins, otherwise follow the system */
-  var mq = window.matchMedia('(prefers-color-scheme: dark)');
-  try {
-    var saved = localStorage.getItem('theme');
-    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
-  } catch (e) {}
-
-  function currentTheme() {
-    return root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light');
-  }
-  function updateThemeIcon() {
-    themeBtn.textContent = currentTheme() === 'dark' ? '☀' : '☾';
-  }
+  /* Theme: light by default, dark only by explicit choice */
   themeBtn.addEventListener('click', function () {
-    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
-    try { localStorage.setItem('theme', next); } catch (e) {}
-    updateThemeIcon();
+    try { localStorage.setItem('site-theme', next); } catch (e) {}
+    applyLang();
   });
-  if (mq.addEventListener) mq.addEventListener('change', updateThemeIcon);
+
+  /* Decorative background glyphs (programming tokens + pure-math symbols) */
+  var G = ['</>', '{ }', '0x', '>_', 'λ', '&&', '::', '∑', '∫', '∂', '∇', 'π', '∀', '∈', 'ℝⁿ'];
+  var AXES = '<svg viewBox="0 0 100 100" width="120" height="120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 88V12M12 88H88M12 12l-5 9M12 12l5 9M88 88l-9-5M88 88l-9 5M12 60c18-34 34 8 76-30"/></svg>';
+  document.querySelectorAll('[data-glyphs]').forEach(function (host, h) {
+    var layer = document.createElement('div');
+    layer.className = 'glyphs';
+    layer.setAttribute('aria-hidden', 'true');
+    var n = parseInt(host.getAttribute('data-glyphs'), 10) || 12;
+    for (var i = 0; i < n; i++) {
+      var k = i + h * 5, s = document.createElement('span');
+      s.textContent = G[k % G.length];
+      s.style.left = ((k * 37 + 11) % 90 + 3) + '%';
+      s.style.top = ((k * 53 + 17) % 86 + 4) + '%';
+      s.style.fontSize = (1.5 + ((k * 7) % 5) * 0.45).toFixed(2) + 'rem';
+      s.style.transform = 'rotate(' + (((k % 5) - 2) * 7) + 'deg)';
+      layer.appendChild(s);
+    }
+    var ax = document.createElement('div');
+    ax.innerHTML = AXES;
+    var svg = ax.firstChild;
+    svg.style.left = (60 + h * 9) % 85 + '%';
+    svg.style.top = (30 + h * 17) % 70 + '%';
+    layer.appendChild(svg);
+    host.insertBefore(layer, host.firstChild);
+  });
+
+  /* Background refresh: add any extra repos listed as .txt files in arcalc/arcalc.
+     Built-in projects above render immediately; this never blocks and fails silently. */
+  function norm(u) { return String(u).toLowerCase().replace(/\/+$/, ''); }
+  function safeUrl(raw) {
+    try {
+      var u = new URL(String(raw).trim());
+      return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : null;
+    } catch (e) { return null; }
+  }
+  function refreshProjects() {
+    try {
+      var grid = document.getElementById('projects-grid');
+      fetch('https://api.github.com/repos/arcalc/arcalc/contents/')
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (files) {
+          var txt = (Array.isArray(files) ? files : []).filter(function (f) { return /\.txt$/i.test(f.name); });
+          return Promise.all(txt.map(function (f) {
+            return fetch(f.download_url)
+              .then(function (r) { return r.text(); })
+              .then(function (t) { return { name: f.name.replace(/\.txt$/i, '').replace(/-/g, ' '), href: safeUrl(t) }; })
+              .catch(function () { return null; });
+          }));
+        })
+        .then(function (items) {
+          var seen = {};
+          grid.querySelectorAll('.go').forEach(function (a) { seen[norm(a.href)] = true; });
+          var added = false;
+          items.forEach(function (it) {
+            if (!it || !it.href || seen[norm(it.href)]) return;
+            seen[norm(it.href)] = true;
+            var card = document.createElement('article');
+            card.className = 'card';
+            var top = document.createElement('div');
+            top.className = 'card-top';
+            var icon = document.createElement('span');
+            icon.className = 'icon'; icon.setAttribute('aria-hidden', 'true'); icon.dir = 'ltr'; icon.textContent = '>_';
+            top.appendChild(icon);
+            var h3 = document.createElement('h3'), sp = document.createElement('span');
+            sp.textContent = it.name; h3.appendChild(sp);
+            var a = document.createElement('a');
+            a.className = 'go'; a.href = it.href; a.target = '_blank'; a.rel = 'noopener';
+            a.setAttribute('data-en', 'View Project →'); a.setAttribute('data-ar', 'عرض المشروع ←');
+            card.appendChild(top); card.appendChild(h3); card.appendChild(a);
+            grid.appendChild(card);
+            added = true;
+          });
+          if (added) applyLang();
+        })
+        .catch(function () {});
+    } catch (e) {}
+  }
 
   applyLang();
-  updateThemeIcon();
+  window.addEventListener('load', function () { setTimeout(refreshProjects, 0); });
 })();
 </script>
 </body>
