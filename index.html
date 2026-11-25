@@ -1,221 +1,411 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>arcalc | Systems Developer</title>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* =========================================
-           CSS: Variables & Theming
-           ========================================= */
-        :root {
-            /* Light Theme (Stormy Morning) */
-            --bg-color: #E0E0E0;
-            --surface-color: #BDDDFC;
-            --text-primary: #121212;
-            --text-secondary: #384959;
-            --accent-color: #6A89A7;
-            --accent-hover: #88BDF2;
-            --border-color: #B0B0B0;
-            --card-shadow: rgba(56, 73, 89, 0.1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>arcalc | Systems Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* 10 Base Palette Tokens */
+  --navy: #243C4C;
+  --cerulean: #5289AD;
+  --teal: #698696;
+  --silver: #ACBCBF;
+  --ice: #F4FCFB;
+  --offwhite: #E9E6E7;
+  --charcoal: #5E5653;
+  --slate: #7B7F8A;
+  --taupe: #AB978C;
+  --steel: #6B7C98;
 
-        [data-theme="dark"] {
-            /* Dark Theme (Deep Grays) */
-            --bg-color: #121212;
-            --surface-color: #444444;
-            --text-primary: #E0E0E0;
-            --text-secondary: #B0B0B0;
-            --accent-color: #88BDF2;
-            --accent-hover: #BDDDFC;
-            --border-color: #888888;
-            --card-shadow: rgba(0, 0, 0, 0.5);
-        }
+  /* Light Mode Semantic Tokens */
+  --bg: var(--offwhite);
+  --surface: var(--ice);
+  --surface-2: color-mix(in srgb, var(--ice) 55%, var(--offwhite));
+  --text: var(--charcoal);
+  --text-2: color-mix(in srgb, var(--slate) 45%, var(--charcoal));
+  --border: color-mix(in srgb, var(--silver) 80%, var(--offwhite));
+  --link: color-mix(in srgb, var(--cerulean) 72%, var(--navy));
+  --btn: color-mix(in srgb, var(--cerulean) 76%, var(--navy));
+  --btn-hover: color-mix(in srgb, var(--teal) 70%, var(--navy));
+  --badge-bg: color-mix(in srgb, var(--taupe) 35%, var(--ice));
+  --term: color-mix(in srgb, var(--navy) 58%, #000);
+  --term-bar: color-mix(in srgb, var(--navy) 80%, #000);
+  --term-text: var(--ice);
+  --term-dim: var(--silver);
+  --nav-bg: color-mix(in srgb, var(--offwhite) 88%, transparent);
+  --radius: 10px;
+  color-scheme: light;
+}
 
-        /* =========================================
-           CSS: Global Styles
-           ========================================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-primary); transition: background-color 0.4s ease, color 0.4s ease; line-height: 1.6; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+:root[data-theme="dark"] {
+  --bg: var(--navy);
+  --surface: color-mix(in srgb, var(--navy) 90%, var(--ice));
+  --surface-2: color-mix(in srgb, var(--navy) 80%, #000);
+  --text: var(--ice);
+  --text-2: var(--silver);
+  --border: color-mix(in srgb, var(--navy) 72%, var(--silver));
+  --link: color-mix(in srgb, var(--cerulean) 55%, var(--ice));
+  --btn: color-mix(in srgb, var(--cerulean) 82%, var(--navy));
+  --btn-hover: var(--cerulean);
+  --badge-bg: color-mix(in srgb, var(--taupe) 22%, var(--navy));
+  --term: color-mix(in srgb, var(--navy) 50%, #000);
+  --nav-bg: color-mix(in srgb, var(--navy) 88%, transparent);
+  color-scheme: dark;
+}
 
-        /* Navigation */
-        nav { padding: 20px 0; background-color: var(--surface-color); border-bottom: 1px solid var(--border-color); transition: background-color 0.4s ease; }
-        .nav-content { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); letter-spacing: 1px; }
-        #theme-toggle { background: none; border: none; color: var(--text-primary); font-size: 1.2rem; cursor: pointer; transition: color 0.3s ease; }
-        #theme-toggle:hover { color: var(--accent-color); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: var(--navy);
+    --surface: color-mix(in srgb, var(--navy) 90%, var(--ice));
+    --surface-2: color-mix(in srgb, var(--navy) 80%, #000);
+    --text: var(--ice);
+    --text-2: var(--silver);
+    --border: color-mix(in srgb, var(--navy) 72%, var(--silver));
+    --link: color-mix(in srgb, var(--cerulean) 55%, var(--ice));
+    --btn: color-mix(in srgb, var(--cerulean) 82%, var(--navy));
+    --btn-hover: var(--cerulean);
+    --badge-bg: color-mix(in srgb, var(--taupe) 22%, var(--navy));
+    --term: color-mix(in srgb, var(--navy) 50%, #000);
+    --nav-bg: color-mix(in srgb, var(--navy) 88%, transparent);
+    color-scheme: dark;
+  }
+}
 
-        /* Hero Section */
-        .hero { padding: 80px 0; text-align: left; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
-        .highlight { color: var(--accent-color); }
-        .hero h2 { font-size: 1.5rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 25px; }
-        .bio { font-size: 1.1rem; max-width: 700px; margin-bottom: 30px; color: var(--text-secondary); }
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
-        .tech-stack span { background-color: var(--surface-color); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: 1px solid var(--border-color); color: var(--text-primary); transition: all 0.3s ease; }
-        .btn { display: inline-block; background-color: var(--accent-color); color: #121212; padding: 12px 28px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease; }
-        [data-theme="light"] .btn { color: #FFFFFF; }
-        .btn:hover { background-color: var(--accent-hover); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif; line-height: 1.7;
+  transition: background-color .3s ease, color .3s ease;
+}
+h1, h2, .brand { font-family: 'Amiri', serif; line-height: 1.25; }
+a { color: var(--link); }
+:focus-visible { outline: 2px solid var(--cerulean); outline-offset: 3px; }
+.wrap { width: min(94%, 1520px); margin-inline: auto; }
+.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
 
-        /* Projects Section */
-        .projects { padding: 60px 0; min-height: 300px; }
-        .section-title { font-size: 2rem; margin-bottom: 40px; border-bottom: 2px solid var(--accent-color); display: inline-block; padding-bottom: 5px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        
-        .card { background-color: var(--surface-color); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px var(--card-shadow); transition: transform 0.3s ease, background-color 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; }
-        .card:hover { transform: translateY(-5px); }
-        .card h4 { font-size: 1.3rem; margin-bottom: 15px; color: var(--accent-color); display: flex; align-items: center; gap: 10px; word-break: break-all; }
-        .card-link { color: var(--text-primary); text-decoration: none; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap: 5px; margin-top: 15px; width: fit-content; }
-        .card-link:hover { color: var(--accent-hover); }
-        
-        /* Loader */
-        .loader { text-align: center; color: var(--text-secondary); font-style: italic; }
+/* Navigation */
+nav {
+  position: sticky; top: 0; z-index: 10; height: 68px;
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-in { height: 100%; display: flex; align-items: center; gap: 16px; }
+.brand { font-size: 1.8rem; font-weight: 700; color: var(--text); text-decoration: none; }
+.nav-links { display: flex; gap: 28px; margin-inline: auto 12px; }
+.nav-links a { color: var(--text-2); text-decoration: none; font-weight: 500; font-size: .95rem; transition: color .2s ease; }
+.nav-links a:hover { color: var(--link); }
+.tools { display: flex; gap: 8px; }
+.tool {
+  min-width: 40px; height: 36px; padding-inline: 12px;
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  font: 500 .9rem 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  cursor: pointer; transition: border-color .2s ease, color .2s ease;
+}
+.tool:hover { border-color: var(--cerulean); color: var(--link); }
 
-        /* Footer */
-        footer { text-align: center; padding: 40px 0; margin-top: 40px; background-color: var(--surface-color); border-top: 1px solid var(--border-color); }
-        .social-links { margin-bottom: 15px; }
-        .social-links a { color: var(--text-secondary); margin: 0 15px; text-decoration: none; font-size: 1.1rem; transition: color 0.3s ease; }
-        .social-links a:hover { color: var(--accent-color); }
-        footer p { color: var(--text-secondary); font-size: 0.9rem; }
-    </style>
+/* Hero & footer: always navy */
+.on-navy { position: relative; overflow: hidden; background: var(--navy); color: var(--ice); }
+.on-navy::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--cerulean) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--cerulean) 9%, transparent) 1px, transparent 1px);
+  background-size: 36px 36px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 15%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 15%, transparent 75%);
+}
+.on-navy > * { position: relative; }
+.hero { min-height: calc(100vh - 68px); display: flex; align-items: center; padding-block: 72px; scroll-margin-top: 68px; }
+.hero-grid { display: grid; grid-template-columns: 1.25fr .85fr; align-items: center; gap: 56px; }
+.hero h1 { font-size: clamp(2.8rem, 4.8vw, 4.4rem); font-weight: 700; margin-bottom: 14px; }
+.role { color: var(--silver); font-size: 1.2rem; margin-bottom: 20px; }
+.bio { color: var(--silver); max-width: 60ch; margin-bottom: 28px; font-size: 1.05rem; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+.badge {
+  font: 400 .85rem 'IBM Plex Mono', ui-monospace, monospace; padding: 5px 12px; border-radius: 999px;
+  background: color-mix(in srgb, var(--taupe) 22%, var(--navy));
+  border: 1px solid color-mix(in srgb, var(--navy) 72%, var(--silver)); color: var(--ice);
+}
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-block; padding: 12px 28px; border-radius: var(--radius);
+  background: var(--btn); color: var(--ice); text-decoration: none; font-weight: 600;
+  border: 1px solid transparent; transition: background-color .2s ease, border-color .2s ease;
+}
+.btn:hover { background: var(--btn-hover); }
+.btn.ghost { background: transparent; border-color: var(--silver); }
+.btn.ghost:hover { border-color: var(--ice); background: color-mix(in srgb, var(--ice) 8%, transparent); }
+
+/* Profile card */
+.profile {
+  position: relative; overflow: hidden; scroll-margin-top: 92px;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--cerulean) 38%, transparent);
+  background: color-mix(in srgb, var(--navy) 88%, var(--ice));
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 24px 60px color-mix(in srgb, #000 28%, transparent);
+}
+.profile::before { content: ""; position: absolute; top: 0; inset-inline-start: 0; width: 72px; height: 2px; background: var(--cerulean); }
+.profile::after {
+  content: ""; position: absolute; top: 0; right: 0; width: 170px; height: 170px; pointer-events: none;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--cerulean) 22%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--cerulean) 22%, transparent) 1px, transparent 1px);
+  background-size: 17px 17px;
+  -webkit-mask-image: radial-gradient(circle at 100% 0, #000, transparent 70%);
+  mask-image: radial-gradient(circle at 100% 0, #000, transparent 70%);
+}
+.pillar { position: relative; z-index: 1; padding: 26px 30px; }
+.pillar + .pillar { border-top: 1px solid color-mix(in srgb, var(--cerulean) 22%, transparent); }
+.pillar h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 1.1rem; font-weight: 600; color: var(--ice); }
+.pillar h3::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--cerulean); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: 400 .8rem 'IBM Plex Mono', ui-monospace, monospace; padding: 4px 10px; border-radius: 6px;
+  color: var(--silver); border: 1px solid color-mix(in srgb, var(--silver) 30%, transparent);
+}
+
+/* Sections */
+.section { padding-block: 88px; scroll-margin-top: 68px; }
+.section.alt { background: var(--surface-2); }
+.section h2 { font-size: clamp(2rem, 3vw, 2.6rem); font-weight: 700; margin-bottom: 36px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 24px; }
+.card {
+  display: flex; flex-direction: column; gap: 14px; padding: 28px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text); text-decoration: none;
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.card:hover {
+  border-color: var(--cerulean); transform: translateY(-4px);
+  box-shadow: 0 0 0 1px var(--cerulean), 0 12px 30px color-mix(in srgb, var(--cerulean) 22%, transparent);
+}
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.icon {
+  width: 40px; height: 40px; display: grid; place-items: center; border-radius: 8px;
+  background: var(--badge-bg); border: 1px solid var(--border);
+  font: 500 .95rem 'IBM Plex Mono', ui-monospace, monospace; color: var(--text);
+}
+.tech {
+  font: 400 .78rem 'IBM Plex Mono', ui-monospace, monospace; padding: 3px 10px; border-radius: 6px;
+  background: var(--badge-bg); border: 1px solid var(--border); color: var(--text);
+}
+.card h3 { font-size: 1.2rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.card h3 span { display: inline-block; unicode-bidi: isolate; direction: ltr; }
+.card p { color: var(--text-2); flex: 1; }
+.card .go { font-weight: 600; color: var(--link); margin-top: 4px; }
+.card:hover .go { text-decoration: underline; }
+.contact-grid { grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+.label { display: block; color: var(--text-2); font-size: .88rem; }
+.value { display: block; unicode-bidi: isolate; overflow-wrap: anywhere; font: 500 1.05rem 'IBM Plex Mono', ui-monospace, monospace; color: var(--link); }
+
+/* Footer */
+footer { padding-block: 40px; }
+.foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 28px; }
+.foot p { color: var(--silver); font-size: .9rem; }
+.foot .links { display: flex; gap: 24px; }
+.foot .links a { color: var(--ice); text-decoration: none; font: 400 .9rem 'IBM Plex Mono', ui-monospace, monospace; }
+.foot .links a:hover { color: var(--silver); text-decoration: underline; }
+
+@media (max-width: 980px) {
+  .hero { min-height: 0; padding-block: 64px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 760px) { .nav-links { display: none; } .tools { margin-inline-start: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+  .card:hover { transform: none; }
+}
+</style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-content">
-            <span class="logo">arcalc</span>
-            <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">
-                <i class="fas fa-sun"></i>
-            </button>
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">arcalc</a>
+    <div class="nav-links">
+      <a href="#projects" data-en="Projects" data-ar="المشاريع">Projects</a>
+      <a href="#focus" data-en="Focus" data-ar="التركيز">Focus</a>
+      <a href="#contact" data-en="Contact" data-ar="التواصل">Contact</a>
+      <a href="https://github.com/arcalc" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="tools">
+      <button class="tool" id="lang-btn" type="button" data-en="العربية" data-ar="English">العربية</button>
+      <button class="tool" id="theme-btn" type="button">☾</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero on-navy" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 data-en="Hi, I'm arcalc" data-ar="مرحبًا، أنا arcalc">Hi, I'm arcalc</h1>
+      <p class="role" data-en="Systems Developer | Cybersecurity | Pure Mathematics" data-ar="مطوّر أنظمة | الأمن السيبراني | الرياضيات البحتة">Systems Developer | Cybersecurity | Pure Mathematics</p>
+      <p class="bio" data-en="I am deeply passionate about low-level programming, system hardening, and mathematical analysis. My primary focus revolves around C++, Linux environments, and building robust security utilities." data-ar="أهتم بعمق بالبرمجة منخفضة المستوى وتحصين الأنظمة والتحليل الرياضي. يتركز عملي على C++ وبيئات لينكس وبناء أدوات أمنية متينة.">I am deeply passionate about low-level programming, system hardening, and mathematical analysis. My primary focus revolves around C++, Linux environments, and building robust security utilities.</p>
+      <div class="badges">
+        <span class="badge" data-en="C++" data-ar="C++">C++</span>
+        <span class="badge" data-en="x86_64 Assembly" data-ar="لغة التجميع x86_64">x86_64 Assembly</span>
+        <span class="badge" data-en="Linux" data-ar="لينكس">Linux</span>
+        <span class="badge" data-en="Cybersecurity" data-ar="الأمن السيبراني">Cybersecurity</span>
+        <span class="badge" data-en="Operations Research" data-ar="بحوث العمليات">Operations Research</span>
+      </div>
+      <div class="actions">
+        <a class="btn" href="mailto:arcalc@proton.me" data-en="Contact Me" data-ar="تواصل معي">Contact Me</a>
+        <a class="btn ghost" href="#projects" data-en="My Projects" data-ar="مشاريعي">My Projects</a>
+      </div>
+    </div>
+
+    <aside class="profile" id="focus">
+      <div class="pillar">
+        <h3 data-en="Low-Level &amp; Systems" data-ar="البرمجة منخفضة المستوى والأنظمة">Low-Level &amp; Systems</h3>
+        <div class="chips">
+          <span class="chip" data-en="C++17" data-ar="C++17">C++17</span>
+          <span class="chip" data-en="Qt6" data-ar="Qt6">Qt6</span>
+          <span class="chip" data-en="x86_64 Assembly" data-ar="لغة التجميع x86_64">x86_64 Assembly</span>
         </div>
-    </nav>
-
-    <!-- Header Section -->
-    <header class="hero">
-        <div class="container">
-            <h1>Hi, I'm <span class="highlight">arcalc</span></h1>
-            <h2>Systems Developer | Cybersecurity | Pure Mathematics</h2>
-            <p class="bio">
-                I am deeply passionate about low-level programming, system hardening, and mathematical analysis. 
-                My primary focus revolves around C++, Linux environments, and building robust security utilities.
-            </p>
-            <div class="tech-stack">
-                <span>C++</span>
-                <span>x86_64 Assembly</span>
-                <span>Linux</span>
-                <span>Cybersecurity</span>
-                <span>Operations Research</span>
-            </div>
-            <a href="mailto:arcalc@proton.me" class="btn">Contact Me</a>
+      </div>
+      <div class="pillar">
+        <h3 data-en="Linux &amp; Hardening" data-ar="لينكس والتحصين">Linux &amp; Hardening</h3>
+        <div class="chips">
+          <span class="chip" data-en="Arch Linux" data-ar="Arch Linux">Arch Linux</span>
+          <span class="chip" data-en="Kernel/Network Security" data-ar="أمن النواة والشبكات">Kernel/Network Security</span>
         </div>
-    </header>
-
-    <!-- Dynamic Projects Section -->
-    <section class="projects">
-        <div class="container">
-            <h3 class="section-title">My Projects</h3>
-            <!-- This grid will be populated automatically by JavaScript -->
-            <div id="projects-grid" class="grid">
-                <p class="loader"><i class="fas fa-spinner fa-spin"></i> Loading projects from repository...</p>
-            </div>
+      </div>
+      <div class="pillar">
+        <h3 data-en="Mathematics" data-ar="الرياضيات">Mathematics</h3>
+        <div class="chips">
+          <span class="chip" data-en="Pure Math" data-ar="الرياضيات البحتة">Pure Math</span>
+          <span class="chip" data-en="Operations Research" data-ar="بحوث العمليات">Operations Research</span>
         </div>
-    </section>
+      </div>
+    </aside>
+  </div>
+</header>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://github.com/arcalc" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                <a href="mailto:arcalc@proton.me"><i class="fas fa-envelope"></i> arcalc@proton.me</a>
-            </div>
-            <p>&copy; 2026 arcalc. All rights reserved.</p>
-        </div>
-    </footer>
+<section class="section" id="projects">
+  <div class="wrap">
+    <h2 data-en="My Projects" data-ar="مشاريعي">My Projects</h2>
+    <div class="grid">
 
-    <!-- =========================================
-         JavaScript: Theme Toggle & Dynamic Projects
-         ========================================= -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            /* --- Theme Toggle Logic --- */
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            const themeIcon = themeToggleBtn.querySelector('i');
-            
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateIcon(savedTheme);
+      <article class="card">
+        <div class="card-top"><span class="icon" aria-hidden="true" dir="ltr">&gt;_</span><span class="tech" dir="ltr">C++</span></div>
+        <h3><span>Learn_Cpp</span></h3>
+        <p data-en="Notes and exercises from learning C++." data-ar="ملاحظات وتمارين من رحلة تعلّم C++.">Notes and exercises from learning C++.</p>
+        <a class="go" href="https://github.com/arcalc/Learn_Cpp" target="_blank" rel="noopener" data-en="View Project →" data-ar="عرض المشروع ←">View Project →</a>
+      </article>
 
-            themeToggleBtn.addEventListener('click', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                updateIcon(newTheme);
-            });
+      <article class="card">
+        <div class="card-top"><span class="icon" aria-hidden="true" dir="ltr">&gt;_</span><span class="tech" dir="ltr">C++17 / Qt6</span></div>
+        <h3><span>M4S_Downloader</span></h3>
+        <p data-en="A downloader for M4S media segments." data-ar="أداة لتنزيل مقاطع الوسائط بصيغة M4S.">A downloader for M4S media segments.</p>
+        <a class="go" href="https://github.com/arcalc/M4S_Downloader" target="_blank" rel="noopener" data-en="View Project →" data-ar="عرض المشروع ←">View Project →</a>
+      </article>
 
-            function updateIcon(theme) {
-                if (theme === 'dark') {
-                    themeIcon.className = 'fas fa-sun'; 
-                } else {
-                    themeIcon.className = 'fas fa-moon'; 
-                }
-            }
+      <article class="card">
+        <div class="card-top"><span class="icon" aria-hidden="true" dir="ltr">&gt;_</span><span class="tech" dir="ltr">C++17 / POSIX</span></div>
+        <h3><span>Security_Toolkit(For_Linux)</span></h3>
+        <p data-en="Security and hardening utilities for Linux." data-ar="أدوات أمنية وتحصين لأنظمة لينكس.">Security and hardening utilities for Linux.</p>
+        <a class="go" href="https://github.com/arcalc/Security_Toolkit" target="_blank" rel="noopener" data-en="View Project →" data-ar="عرض المشروع ←">View Project →</a>
+      </article>
 
-            /* --- Dynamic Projects Logic (Fetching .txt files) --- */
-            async function loadProjects() {
-                const grid = document.getElementById('projects-grid');
-                const repoApiUrl = 'https://api.github.com/repos/arcalc/arcalc/contents/';
+    </div>
+  </div>
+</section>
 
-                try {
-                    // 1. Fetch repository contents
-                    const response = await fetch(repoApiUrl);
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    const files = await response.json();
+<section class="section alt" id="contact">
+  <div class="wrap">
+    <h2 data-en="Get in Touch" data-ar="تواصل معي">Get in Touch</h2>
+    <div class="grid contact-grid">
+      <a class="card" href="mailto:arcalc@proton.me">
+        <span class="label" data-en="Email" data-ar="البريد الإلكتروني">Email</span>
+        <span class="value">arcalc@proton.me</span>
+      </a>
+      <a class="card" href="https://github.com/arcalc" target="_blank" rel="noopener">
+        <span class="label" data-en="GitHub" data-ar="GitHub">GitHub</span>
+        <span class="value">github.com/arcalc</span>
+      </a>
+      <a class="card" href="https://arcalc.github.io/arcalc/" target="_blank" rel="noopener">
+        <span class="label" data-en="Portfolio" data-ar="الموقع الشخصي">Portfolio</span>
+        <span class="value">arcalc.github.io/arcalc</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-                    // 2. Filter for .txt files only
-                    const txtFiles = files.filter(file => file.name.endsWith('.txt'));
+<footer class="on-navy">
+  <div class="wrap foot">
+    <p data-en="© 2026 arcalc. All rights reserved." data-ar="© 2026 arcalc. جميع الحقوق محفوظة.">© 2026 arcalc. All rights reserved.</p>
+    <div class="links">
+      <a href="https://github.com/arcalc" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:arcalc@proton.me">arcalc@proton.me</a>
+    </div>
+  </div>
+</footer>
 
-                    // Clear loader
-                    grid.innerHTML = '';
+<script>
+(function () {
+  var root = document.documentElement;
+  var langBtn = document.getElementById('lang-btn');
+  var themeBtn = document.getElementById('theme-btn');
+  var ARIA = {
+    en: { lang: 'Switch to Arabic', theme: 'Toggle light and dark mode', title: 'arcalc | Systems Developer' },
+    ar: { lang: 'التبديل إلى الإنجليزية', theme: 'التبديل بين الوضع الفاتح والداكن', title: 'arcalc | مطوّر أنظمة' }
+  };
 
-                    if (txtFiles.length === 0) {
-                        grid.innerHTML = '<p class="loader">No project files (.txt) found. Add some to the repository!</p>';
-                        return;
-                    }
+  /* Language */
+  var lang = 'en';
+  try { lang = localStorage.getItem('lang') || 'en'; } catch (e) {}
+  if (lang !== 'ar') lang = 'en';
 
-                    // 3. Loop through txt files, read content, and create cards
-                    for (const file of txtFiles) {
-                        const projectName = file.name.replace('.txt', '').replace(/-/g, ' '); // Remove .txt and replace dashes with spaces
-                        
-                        // Fetch the raw text content (the URL inside the txt file)
-                        const contentResponse = await fetch(file.download_url);
-                        const projectLink = await contentResponse.text();
+  function applyLang() {
+    root.lang = lang;
+    root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      el.textContent = el.getAttribute('data-' + lang);
+    });
+    langBtn.lang = lang === 'ar' ? 'en' : 'ar';
+    langBtn.setAttribute('aria-label', ARIA[lang].lang);
+    themeBtn.setAttribute('aria-label', ARIA[lang].theme);
+    document.title = ARIA[lang].title;
+  }
+  langBtn.addEventListener('click', function () {
+    lang = lang === 'ar' ? 'en' : 'ar';
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+    applyLang();
+  });
 
-                        // Build the card HTML
-                        const card = document.createElement('div');
-                        card.className = 'card';
-                        card.innerHTML = `
-                            <div>
-                                <h4><i class="fas fa-terminal"></i> ${projectName}</h4>
-                            </div>
-                            <a href="${projectLink.trim()}" target="_blank" class="card-link">View Project <span>&rarr;</span></a>
-                        `;
-                        grid.appendChild(card);
-                    }
-                } catch (error) {
-                    console.error('Error loading projects:', error);
-                    grid.innerHTML = '<p class="loader" style="color: #ff6b6b;">Failed to load projects. Please check API limits or repository settings.</p>';
-                }
-            }
+  /* Theme: a saved choice wins, otherwise follow the system */
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+  } catch (e) {}
 
-            // Run the project loader
-            loadProjects();
-        });
-    </script>
+  function currentTheme() {
+    return root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light');
+  }
+  function updateThemeIcon() {
+    themeBtn.textContent = currentTheme() === 'dark' ? '☀' : '☾';
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    updateThemeIcon();
+  });
+  if (mq.addEventListener) mq.addEventListener('change', updateThemeIcon);
+
+  applyLang();
+  updateThemeIcon();
+})();
+</script>
 </body>
 </html>
